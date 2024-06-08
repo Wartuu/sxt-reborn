@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan ZSŁ [mythrium.xyz]</title>
+    <link rel="stylesheet" href="style.css">
+
+    <meta name="description" content="Lepszy harmonogram dla Technikum ZSŁ w Gliwicach.">
+    <meta name="keywords" content="harmonogram, technikum, ZSŁ, Gliwice">
+    <meta name="author" content="Wartuu">
+    
+    <!-- Twitter Card data -->
+    <meta name="twitter:title" content="Lepszy harmonogram dla Technikum ZSŁ w Gliwicach">
+    <meta name="twitter:description" content="Lepszy harmonogram dla Technikum ZSŁ w Gliwicach">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Lepszy harmonogram dla Technikum ZSŁ w Gliwicach">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zsl.mythrium.xyz">
+    <meta property="og:description" content="Lepszy harmonogram dla Technikum ZSŁ w Gliwicach">
+    <meta property="og:site_name" content="mythrium">
+
+</head>
+<body>
+    <div class="container">
+        <div class="ztm-block block">
+            <table class="full-height gzm-table">
+                <tr>
+                    <th>autobus [CP]</th>
+                    <th>kierunek</th>
+                    <th>czas</th>
+                </tr>
+
+                <%-gzm%>
+            </table>
+        </div>
+        
+        <div class="zsl-block block">
+
+            <table>
+                <%-zsl%>
+            </table>
+            
+            <div class="zsl-calculation">
+                <div class="day calc-block">
+                    <h2>Teraz</h2>
+                </div>
+                <div class="week calc-block">
+                    <h2>Ten tydzień</h2>
+                </div>
+                <div class="year calc-block">
+                    <h2>Ten rok</h2>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    
+</body>
+</html>
