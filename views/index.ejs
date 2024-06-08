@@ -57,6 +57,25 @@
 
         </div>
     </div>
+
+
+    <script>
+
+        function refreshContent() {
+            fetch('/')
+            .then(response => response.text())
+            .then(data => {
+                document.body.innerHTML = data;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        }
+
+        refreshContent();
+
+        setInterval(refreshContent, 1000*30); 
+
+
+    </script>
     
 </body>
 </html>
