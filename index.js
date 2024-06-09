@@ -95,56 +95,70 @@ async function updateZSL() {
         zsl = updatedZSL;
 
     } catch (error) {
-        console.error("Error:", error);
+        console.error("Error: ", error);
     }
 }
 
 
 
 async function updateGZM() {
-    
-    var newGzm = "";
+    try {
+        var newGzm = "";
 
-    var departures = [];
-    for(let i = gzmEnd; i >= gzmBegin; i--) {
-        let positionDeparture = await requestGZM(gzm_url + i);
-        departures.push(...positionDeparture)
+        var departures = [];
+        for(let i = gzmEnd; i >= gzmBegin; i--) {
+            let positionDeparture = await requestGZM(gzm_url + i);
+
+            if(positionDeparture === undefined) {
+                return;
+            }
+
+            departures.push(...positionDeparture)
+        }
+    
+        departures.sort((a, b) => {
+            const timeA = timeToInt(a.time);
+            const timeB = timeToInt(b.time);
+            return timeA - timeB;
+        })
+    
+        departures = departures.slice(0, 15);
+    
+        departures.forEach(departure => {
+            newGzm += `<tr> <td>${departure.line}</td> <td>${departure.destination}</td> <td>${departure.time}</td></tr>`
+        })
+    
+        gzm = newGzm;
+    } catch (error) {
+        console.error("Error: ", error);
     }
 
-    departures.sort((a, b) => {
-        const timeA = timeToInt(a.time);
-        const timeB = timeToInt(b.time);
-        return timeA - timeB;
-    })
-
-    departures = departures.slice(0, 15);
-
-    departures.forEach(departure => {
-        newGzm += `<tr> <td>${departure.line}</td> <td>${departure.destination}</td> <td>${departure.time}</td></tr>`
-    })
-
-    gzm = newGzm;
 }
 
 async function requestGZM(url) {
-    const response = await axios.get(url);
-    const dom = new JSDOM(response.data);
-    const document = dom.window.document;
-
-    const rows = document.querySelector(".rows");
-    const departures = rows.querySelectorAll(".departure");
-
-    var output = [];
-
-    departures.forEach(departure => {
-
-        const line = departure.querySelector('.line').innerHTML;
-        const destination = departure.querySelector('.destination').innerHTML;
-        const time = departure.querySelector('.time').innerHTML;
-        output.push({line, destination, time})
-    });
-
-    return output;
+    try {
+        const response = await axios.get(url);
+        const dom = new JSDOM(response.data);
+        const document = dom.window.document;
+    
+        const rows = document.querySelector(".rows");
+        const departures = rows.querySelectorAll(".departure");
+    
+        var output = [];
+    
+        departures.forEach(departure => {
+    
+            const line = departure.querySelector('.line').innerHTML;
+            const destination = departure.querySelector('.destination').innerHTML;
+            const time = departure.querySelector('.time').innerHTML;
+            output.push({line, destination, time})
+        });
+    
+        return output;
+    } catch (error) {
+        console.error("Error: ", error)
+        return undefined;
+    }
 }
 
 function timeToInt(strTime) {
