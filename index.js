@@ -122,7 +122,6 @@ async function updateGZM() {
             return timeA - timeB;
         })
     
-        departures = departures.slice(0, 15);
     
         departures.forEach(departure => {
             newGzm += `<tr> <td>${departure.line}</td> <td>${departure.destination}</td> <td>${departure.time}</td></tr>`
@@ -163,6 +162,8 @@ async function requestGZM(url) {
 
 function timeToInt(strTime) {
     if(strTime === undefined) return;
+    if(strTime === ">>>") return 0;
+
     if(strTime.includes("min")) {
         return parseInt(strTime.split(" ")[0]);
     } else {

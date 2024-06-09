@@ -31,13 +31,11 @@
                     <th>kierunek</th>
                     <th>czas</th>
                 </tr>
-
                 <%-gzm%>
             </table>
         </div>
         
         <div class="zsl-block block">
-
             <table>
                 <%-zsl%>
             </table>
@@ -53,14 +51,10 @@
                     <h2>Ten rok</h2>
                 </div>
             </div>
-
-
         </div>
     </div>
 
-
     <script>
-
         function refreshContent() {
             fetch('/')
             .then(response => response.text())
@@ -72,10 +66,7 @@
 
         refreshContent();
 
-        setInterval(refreshContent, 1000*30); 
-
-
+        setInterval(refreshContent, 1000 * 30); 
     </script>
-    
 </body>
 </html>
